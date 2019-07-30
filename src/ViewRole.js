@@ -35,7 +35,7 @@ class ViewRole extends React.Component {
             <div className="base">
                 <h1>You are a {playerRole.name}</h1>
                 <p>{playerRole.desc}</p>
-                <button onClick={this.handleClick}>OK. I am ready.</button>
+                <button onClick={this.handleClick}>Continue</button>
             </div>
         )
     }
