@@ -1,5 +1,7 @@
 import React from 'react';
-import './App.css';
+import ReactDOM from 'react-dom';
+import Lobby from './Lobby';
+import './styles/App.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -15,13 +17,18 @@ class App extends React.Component {
   }
 
   handleSubmit(e) {
-    alert(`You've submitted ${this.state.nick}.`)
-    e.preventDefault();
+    if (this.state.nick) {
+      ReactDOM.render(<Lobby nick={this.state.nick} />, document.getElementById('root'));
+      e.preventDefault();
+    } else {
+      alert("You have to enter your nickname.");
+      e.preventDefault();
+    }
   }
 
   render() {
     return (
-      <div className="App">
+      <div className="base">
         <h1>Werewolf Automod</h1>
         <p>Enter your nickname</p>
         <form onSubmit={this.handleSubmit}>

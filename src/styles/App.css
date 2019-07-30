@@ -1,4 +1,4 @@
-.App {
+.base {
   text-align: center;
   background-color: #0c0a29;
   min-height: 100vh;
@@ -12,6 +12,6 @@
 }
 
 #nick {
-  width: 80vw;
+  width: 80vmin;
   margin: 2vh;
 }
