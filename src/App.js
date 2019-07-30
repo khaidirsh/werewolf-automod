@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Lobby from './Lobby';
-import './styles/App.css';
+import './styles/style.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -31,10 +31,8 @@ class App extends React.Component {
       <div className="base">
         <h1>Werewolf Automod</h1>
         <p>Enter your nickname</p>
-        <form onSubmit={this.handleSubmit}>
-          <input id="nick" onChange={this.handleChange}/>
-          <input type="submit" value="Submit" />
-        </form>
+        <input id="nick" onChange={this.handleChange}/>
+        <button onClick={this.handleSubmit}>Enter</button>
       </div>
     );
   }
