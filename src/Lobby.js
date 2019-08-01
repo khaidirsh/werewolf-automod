@@ -29,8 +29,10 @@ class Lobby extends React.Component {
             <div className="base">
                 <h1>{title}</h1>
                 <p>Player list:</p>
-                <ul>
-                    {/* Player list from server */}
+                <ul> {/* Insert player list received from server here */}
+                    <li>a</li> 
+                    <li>b</li>
+                    <li>c</li>
                 </ul>
                 <button onClick={this.handleStatus} value="werewolf">Test Start as Werewolf</button> {/* Test */}
                 <button onClick={this.handleStatus} value="seer">Test Start as Seer</button> {/* Test */}
