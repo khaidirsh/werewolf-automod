@@ -28,6 +28,7 @@ class Lobby extends React.Component {
         return (
             <div className="base">
                 <h1>{title}</h1>
+                <h2>Player list:</h2>
                 <ul>
                     {/* Player list from server */}
                 </ul>
