@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './styles/style.css';
 import SeerObserve from './SeerObserve';
 import PlayerList from './PlayerList';
+import NightSummary from './NightSummary';
 
 class NightLogic extends React.Component {
     constructor(props) {
@@ -16,7 +17,7 @@ class NightLogic extends React.Component {
 
     handleDayCycle(e) {
         // Define day broadcast handler here..
-        // render night summary
+        ReactDOM.render(<NightSummary />, document.getElementById("root"))// render night summary
     }
 
     handleAction(e) {
