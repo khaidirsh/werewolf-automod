@@ -26,7 +26,7 @@ class NightLogic extends React.Component {
     }
 
     handleChange(e) {
-        this.setState({actionAt: e.target.value})
+        this.setState({actionAt: e})
     }
 
     handleSubmit(e) {
@@ -45,7 +45,7 @@ class NightLogic extends React.Component {
             return (
                 <div>
                     <p>Pick who do you want to attack:</p>
-                    <PlayerList radio={true} />
+                    <PlayerList radio={true} handleChange={(e) => this.handleChange(e)}/>
                     <button onClick={this.handleSubmit}>Attack</button>
                 </div>
             )
@@ -53,7 +53,7 @@ class NightLogic extends React.Component {
             return (
                 <div>
                     <p>Pick whose role do you want to observe:</p>
-                    <PlayerList radio={true} />
+                    <PlayerList radio={true} handleChange={(e) => this.handleChange(e)}/>
                     <button onClick={this.handleSubmit}>Observe</button>
                 </div>
             )
@@ -61,7 +61,7 @@ class NightLogic extends React.Component {
             return (
                 <div>
                     <p>Pick who do you want to guard:</p>
-                    <PlayerList radio={true} />
+                    <PlayerList radio={true} handleChange={(e) => this.handleChange(e)}/>
                     <button onClick={this.handleSubmit}>Guard</button>
                 </div>
             )
