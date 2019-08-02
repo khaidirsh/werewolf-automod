@@ -30,7 +30,11 @@ class ViewRoleLogic extends React.Component {
                 break;
             case "villager":
                 playerRole.name = "Villager";
-                playerRole.desc = "Just a commoner. Participate in voting, but be careful you might kill another Villager or even the key role Seer."
+                playerRole.desc = "Just a commoner. Participate in voting, but be careful you might kill another Villager or even the key role Seer.";
+                break;
+            case "guardian":
+                playerRole.name = "Guardian";
+                playerRole.desc = "You are allowed to guard 1 person from Werewolf attack each night. Predict who will be attacked by Werewolf, if you succeed they won't be killed that night.";
                 break;
             default:
                 throw Error;

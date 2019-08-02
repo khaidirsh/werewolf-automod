@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/style.css';
 import ViewRole from './ViewRole';
+import PlayerList from './PlayerList';
 
 class Lobby extends React.Component {
     constructor(props) {
@@ -23,20 +24,17 @@ class Lobby extends React.Component {
             title =  "Starting game...";
             setTimeout(() => {
                 ReactDOM.render(<ViewRole role={this.state.role}/>, document.getElementById("root"))
-            }, 3000)
+            }, 1000)
         }
         return (
             <div className="base">
                 <h1>{title}</h1>
                 <p>Player list:</p>
-                <ul> {/* Insert player list received from server here */}
-                    <li>a</li> 
-                    <li>b</li>
-                    <li>c</li>
-                </ul>
-                <button onClick={this.handleStatus} value="werewolf">Test Start as Werewolf</button> {/* Test */}
-                <button onClick={this.handleStatus} value="seer">Test Start as Seer</button> {/* Test */}
-                <button onClick={this.handleStatus} value="villager">Test Start as Villager</button> {/* Test */}
+                <PlayerList />
+                <button onClick={this.handleStatus} value="werewolf">Test as Werewolf</button> {/* Test */}
+                <button onClick={this.handleStatus} value="seer">Test as Seer</button> {/* Test */}
+                <button onClick={this.handleStatus} value="guardian">Test as Guardian</button> {/* Test */}
+                <button onClick={this.handleStatus} value="villager">Test as Villager</button> {/* Test */}
             </div>
         )
     }

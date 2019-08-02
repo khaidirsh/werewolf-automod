@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/style.css';
 import SeerObserve from './SeerObserve';
+import PlayerList from './PlayerList';
 
 class NightLogic extends React.Component {
     constructor(props) {
@@ -29,7 +30,7 @@ class NightLogic extends React.Component {
 
     handleSubmit(e) {
         // Insert submit selection to server here
-        if (this.props.role === "werewolf") {
+        if (this.props.role === "werewolf" || this.props.role === "guardian") {
             // submit this.state.actionAt to server here
             this.setState({action: false}); // Move back to sleep
         } else if (this.props.role === "seer") {
@@ -42,43 +43,25 @@ class NightLogic extends React.Component {
         if (this.props.role === "werewolf" && this.state.action) {
             return (
                 <div>
-                    <p>Pick who do you want to kill:</p>
-                    {/* Insert player list from server here. This should be separated. */}
-                    <div>
-                        <label>
-                            <input type="radio" name="player" value="a" onChange={this.handleChange} /> a
-                        </label>
-                    
-                        <label>
-                            <input type="radio" name="player" value="b" onChange={this.handleChange} /> b
-                        </label>
-                    
-                        <label>
-                            <input type="radio" name="player" value="c" onChange={this.handleChange} /> c
-                        </label>
-                    </div>
-                    <button onClick={this.handleSubmit}>Kill</button>
+                    <p>Pick who do you want to attack:</p>
+                    <PlayerList radio={true} />
+                    <button onClick={this.handleSubmit}>Attack</button>
                 </div>
             )
         } else if (this.props.role === "seer" && this.state.action) {
             return (
                 <div>
                     <p>Pick whose role do you want to observe:</p>
-                    {/* Insert player list from server here. This should be separated */}
-                    <div>
-                        <label>
-                            <input type="radio" name="player" value="a" onChange={this.handleChange} /> a
-                        </label>
-                    
-                        <label>
-                            <input type="radio" name="player" value="b" onChange={this.handleChange} /> b
-                        </label>
-                    
-                        <label>
-                            <input type="radio" name="player" value="c" onChange={this.handleChange} /> c
-                        </label>
-                    </div>
+                    <PlayerList radio={true} />
                     <button onClick={this.handleSubmit}>Observe</button>
+                </div>
+            )
+        } else if (this.props.role === "guardian" && this.state.action) {
+            return (
+                <div>
+                    <p>Pick who do you want to guard:</p>
+                    <PlayerList radio={true} />
+                    <button onClick={this.handleSubmit}>Guard</button>
                 </div>
             )
         } else {
