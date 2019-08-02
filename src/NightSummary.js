@@ -1,6 +1,7 @@
 import React from 'react';
 import './styles/style.css';
-import NightLogic from './NightLogic'
+import ReactDOM from 'react-dom';
+import Day from './Day';
 
 class NightSummary extends React.Component {
     constructor(props) {
@@ -11,7 +12,7 @@ class NightSummary extends React.Component {
     }
 
     handleContinue(e) {
-        
+        ReactDOM.render(<Day />, document.getElementById("root"));
     }
 
     render() {
