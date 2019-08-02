@@ -9,6 +9,7 @@ class PlayerList extends React.Component {
     // Insert player list from server here.
     // Insert function to include or exclude self.
     // Insert formatting builder here for radio button, or just list.
+    // Insert function to add "no one" to pick.
 
     render() {
         // Placeholder
