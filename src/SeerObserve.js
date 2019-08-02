@@ -10,7 +10,6 @@ class SeerObserve extends React.Component {
     }
     
     handleBackToSleep(e) {
-        this.props.backToSleep(false); // Change parent action state to false
         ReactDOM.render(<Night role="seer"/>, document.getElementById("root")); // get back to sleep
     }
 

@@ -34,7 +34,7 @@ class NightLogic extends React.Component {
             this.setState({action: false}); // Move back to sleep
         } else if (this.props.role === "seer") {
             // render observe result
-            ReactDOM.render(<SeerObserve actionAt={this.state.actionAt} backToSleep={(e) => this.setState({action: e})}/>, document.getElementById("root"));
+            ReactDOM.render(<SeerObserve actionAt={this.state.actionAt} />, document.getElementById("root"));
         }
     }
 
