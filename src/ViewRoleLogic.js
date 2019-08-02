@@ -19,7 +19,7 @@ class ViewRoleLogic extends React.Component {
 
     render() {
         let playerRole = {};
-        switch(this.props.role) {
+        switch(this.props.playerRole) {
             case "werewolf":
                 playerRole.name = "Werewolf";
                 playerRole.desc = "You are allowed to kill 1 person each night. You have to stay alive until the end of the game to win. Deceive other people to make them believe that you are one of them.";

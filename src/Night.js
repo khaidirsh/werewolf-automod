@@ -13,7 +13,7 @@ class Night extends React.Component {
         return (
             <div className="base">
                 <h1>Night x</h1> {/* x supposed to be changed with counter from the server */}
-                <NightLogic role={this.props.role} />
+                <NightLogic playerRole={this.props.playerRole} />
             </div>
         )
     }

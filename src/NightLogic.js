@@ -31,17 +31,17 @@ class NightLogic extends React.Component {
 
     handleSubmit(e) {
         // Insert submit selection to server here
-        if (this.props.role === "werewolf" || this.props.role === "guardian") {
+        if (this.props.playerRole === "werewolf" || this.props.playerRole === "guardian") {
             // submit this.state.actionAt to server here
             this.setState({action: false}); // Move back to sleep
-        } else if (this.props.role === "seer") {
+        } else if (this.props.playerRole === "seer") {
             // render observe result
             ReactDOM.render(<SeerObserve actionAt={this.state.actionAt} />, document.getElementById("root"));
         }
     }
 
     render() {
-        if (this.props.role === "werewolf" && this.state.action) {
+        if (this.props.playerRole === "werewolf" && this.state.action) {
             return (
                 <div>
                     <p>Pick who do you want to attack:</p>
@@ -49,15 +49,15 @@ class NightLogic extends React.Component {
                     <button onClick={this.handleSubmit}>Attack</button>
                 </div>
             )
-        } else if (this.props.role === "seer" && this.state.action) {
+        } else if (this.props.playerRole === "seer" && this.state.action) {
             return (
                 <div>
-                    <p>Pick whose role do you want to observe:</p>
+                    <p>Pick whose playerRole do you want to observe:</p>
                     <PlayerList radio={true} handleChange={(e) => this.handleChange(e)}/>
                     <button onClick={this.handleSubmit}>Observe</button>
                 </div>
             )
-        } else if (this.props.role === "guardian" && this.state.action) {
+        } else if (this.props.playerRole === "guardian" && this.state.action) {
             return (
                 <div>
                     <p>Pick who do you want to guard:</p>

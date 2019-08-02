@@ -23,7 +23,7 @@ class ViewRole extends React.Component {
 
     componentDidUpdate() {
         if (this.state.ready && this.state.allReady) { // check if all other players including the player itself ready
-            ReactDOM.render(<Night role={this.props.role} />, document.getElementById("root")); // move to Night stage
+            ReactDOM.render(<Night playerRole={this.props.playerRole} />, document.getElementById("root")); // move to Night stage
         }
     }
 
@@ -38,7 +38,7 @@ class ViewRole extends React.Component {
             )
         } else {
             return (
-                <ViewRoleLogic role={this.props.role} ready={(e) => this.handleReady(e)} />
+                <ViewRoleLogic playerRole={this.props.playerRole} ready={(e) => this.handleReady(e)} />
             )
         }
     }

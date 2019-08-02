@@ -7,13 +7,13 @@ import PlayerList from './PlayerList';
 class Lobby extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {status: "wait", role: ""};
+        this.state = {status: "wait", playerRole: ""};
         this.handleStatus = this.handleStatus.bind(this);
     }
 
     handleStatus(e) {
         // If server sends status to start the game:
-        this.setState({status: "start", role: e.target.value /* Change to role received from server */});
+        this.setState({status: "start", playerRole: e.target.value /* Change to playerRole received from server */});
     }
 
     render() {
@@ -23,7 +23,7 @@ class Lobby extends React.Component {
         } else {
             title =  "Starting game...";
             setTimeout(() => {
-                ReactDOM.render(<ViewRole role={this.state.role}/>, document.getElementById("root"))
+                ReactDOM.render(<ViewRole playerRole={this.state.playerRole}/>, document.getElementById("root"))
             }, 1000)
         }
         return (
