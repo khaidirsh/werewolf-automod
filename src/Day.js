@@ -13,7 +13,7 @@ class Day extends React.Component {
         return (
             <div className="base">
                 <h1>Day x</h1> {/* x supposed to be changed with counter from the server */}
-                <DayLogic />
+                <DayLogic playerRole={this.props.playerRole}/>
             </div>
         )
     }

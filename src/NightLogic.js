@@ -17,7 +17,7 @@ class NightLogic extends React.Component {
 
     handleDayCycle(e) {
         // Define day broadcast handler here..
-        ReactDOM.render(<NightSummary />, document.getElementById("root"))// render night summary
+        ReactDOM.render(<NightSummary playerRole={this.props.playerRole}/>, document.getElementById("root"))// render night summary
     }
 
     handleAction(e) {

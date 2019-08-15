@@ -12,7 +12,7 @@ class NightSummary extends React.Component {
     }
 
     handleContinue(e) {
-        ReactDOM.render(<Day />, document.getElementById("root"));
+        ReactDOM.render(<Day playerRole={this.props.playerRole}/>, document.getElementById("root"));
     }
 
     render() {

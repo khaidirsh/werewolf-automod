@@ -1,6 +1,8 @@
 import React from 'react';
 import './styles/style.css';
+import ReactDOM from 'react-dom';
 import PlayerList from './PlayerList';
+import DaySummary from './DaySummary';
 
 class DayLogic extends React.Component {
     constructor(props) {
@@ -15,6 +17,7 @@ class DayLogic extends React.Component {
     // Insert broadcast handler for temporary vote here
 
     handleVoteStage(e) {
+        // Insert broadcast handler for vote stage here
         this.setState({stage: "vote"});
     }
 
@@ -28,7 +31,7 @@ class DayLogic extends React.Component {
     }
 
     handleAllVoted(e) {
-        // render day summary
+        ReactDOM.render(<DaySummary playerRole={this.props.playerRole}/>, document.getElementById("root"));
     }
 
     render() {
