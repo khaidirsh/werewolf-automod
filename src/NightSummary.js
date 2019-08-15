@@ -8,7 +8,7 @@ class NightSummary extends React.Component {
         super(props);
         this.handleContinue = this.handleContinue.bind(this);
 
-        // Fetch killed person from server
+        // Fetch killed person and their role from server
     }
 
     handleContinue(e) {
@@ -25,7 +25,7 @@ class NightSummary extends React.Component {
 
             // Placeholder:
             <div className="base">
-                <h1>X is killed at night</h1> {/* x supposed to be changed with condition from the server */}
+                <h1>X is killed at night. X is a xxx.</h1> {/* x supposed to be changed with condition from the server */}
                 <button onClick={this.handleContinue}>Continue</button>
             </div>
         )
