@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Lobby from './Lobby';
 import './styles/style.css';
+import socket from './api/socketConnect';
 
 class App extends React.Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class App extends React.Component {
 
   handleSubmit(e) {
     if (this.state.nick) {
+      socket.emit("nick", this.state.nick);
       ReactDOM.render(<Lobby nick={this.state.nick} />, document.getElementById('root'));
       e.preventDefault();
     } else {
