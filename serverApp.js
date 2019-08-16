@@ -46,8 +46,10 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
     console.log('User connected with ID: ' + socket.id);
+
+    // Add player to player list
     socket.on("nick", (nick) => {
-        addPlayer(socket.id, nick)
+        addPlayer(socket.id, nick, io);
     });
 
     socket.on('disconnect', () => {
