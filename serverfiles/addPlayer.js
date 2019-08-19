@@ -14,11 +14,11 @@ module.exports = function (socketId, nickname, io) {
         playerList.push(obj);
         fs.writeFile('./serverfiles/playerList.json', JSON.stringify(playerList), (err) => {
             if (err) throw err;
-            console.log(`${nickname} added to playerList!`)
+            console.log(`${nickname} added to playerList`)
         })
 
-        // Send admin status to client
-        io.to(socketId).emit('admin', obj.admin);
-        console.log(`${socketId} admin: (${obj.admin})`)
+        // Send master status to client
+        io.to(socketId).emit('master', obj.admin);
+        console.log(`${nickname} master status: ${obj.admin}`)
     });
 }
