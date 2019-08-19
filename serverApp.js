@@ -35,7 +35,7 @@ app.use(function (req, res, next) {
 */
 
 // Initialize files
-fs.writeFile('./serverfiles/playerList.json', JSON.stringify([]), (err) => {
+fs.writeFile('./serverfiles/json/playerList.json', JSON.stringify([]), (err) => {
     if (err) throw err;
     console.log("playerList initialized")
 })

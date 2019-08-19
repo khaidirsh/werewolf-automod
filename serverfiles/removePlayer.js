@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 module.exports = function (socketId) {
-    fs.readFile('./serverfiles/playerList.json', (err, data) => {
+    fs.readFile('./serverfiles/json/playerList.json', (err, data) => {
         if (err) throw err;
 
         // Parse JSON data
@@ -18,7 +18,7 @@ module.exports = function (socketId) {
             playerList.splice(index, 1);
 
             // Save new player list
-            fs.writeFile('./serverfiles/playerList.json', JSON.stringify(playerList), (err) => {
+            fs.writeFile('./serverfiles/json/playerList.json', JSON.stringify(playerList), (err) => {
                 if (err) throw err;
                 console.log(`${nickname} removed from playerList`)
             })
