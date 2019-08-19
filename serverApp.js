@@ -4,9 +4,10 @@ const app = express()
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const fs = require('fs');
-const port = 9000
+const port = 9000;
 
 const addPlayer = require('./serverfiles/addPlayer');
+const removePlayer = require('./serverfiles/removePlayer');
 
 /* FEATURE TO BE ADDED: CONTINUE IF PLAYER DISCONNECTED
 app.use(express.cookieParser());
@@ -35,7 +36,7 @@ app.use(function (req, res, next) {
 // Initialize files
 fs.writeFile('./serverfiles/playerList.json', JSON.stringify([]), (err) => {
     if (err) throw err;
-    console.log("playerList initialized!")
+    console.log("playerList initialized")
 })
 
 app.use(express.static(path.join(__dirname, "build")));
@@ -45,16 +46,23 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-    console.log('User connected with ID: ' + socket.id);
+    console.log(`${socket.id} connected`);
 
     // Add player to player list
     socket.on("nick", (nick) => {
         addPlayer(socket.id, nick, io);
     });
 
+    // Remove player from player list
     socket.on('disconnect', () => {
-        console.log(`User with ID: ${socket.id} disconnected`);
+        removePlayer(socket.id);
+        console.log(`${socket.id} disconnected`);
     });
+
+    // Retrieve game start command
+    socket.on('start game', () => {
+        console.log('Starting game..')
+    })
 });
 
-server.listen(port, () => console.log(`Server listening on port ${port}!`));
+server.listen(port, () => console.log(`Server listening on port ${port}`));
