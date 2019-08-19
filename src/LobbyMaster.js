@@ -10,7 +10,7 @@ class LobbyMaster extends React.Component {
     constructor(props) {
         super(props);
         this.state = {status: "wait", playerRole: ""};
-        this.handleStatus = this.handleStatus.bind(this);
+        // this.handleStatus = this.handleStatus.bind(this); // For testing
     }
 
     handleStartServer(e) {
