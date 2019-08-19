@@ -7,10 +7,10 @@ import socket from './api/socketConnect';
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { nick: "", admin: false };
+        this.state = { nick: "", master: false };
 
         this.handleChange = this.handleChange.bind(this);
-        this.handleAdmin = this.handleAdmin.bind(this);
+        this.handleMaster = this.handleMaster.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -18,10 +18,10 @@ class App extends React.Component {
         this.setState({ nick: e.target.value })
     }
 
-    handleAdmin(e) {
-        this.setState({ admin: e });
-        console.log(`Your admin status: ${this.state.admin}`);
-        ReactDOM.render(<Lobby nick={this.state.nick} admin={this.state.admin} />, document.getElementById('root'));
+    handleMaster(e) {
+        this.setState({ master: e });
+        console.log(`Your master status: ${this.state.master}`);
+        ReactDOM.render(<Lobby master={this.state.master} />, document.getElementById('root'));
     }
 
     handleSubmit(e) {
@@ -37,8 +37,13 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        // retreive admin previleges from server
-        socket.on('admin', this.handleAdmin)
+        // add listener to retreive admin previleges from server
+        socket.on('master', this.handleMaster);
+    }
+
+    componentWillUnmount() {
+        // remove listener
+        socket.off('master');
     }
 
     render() {
