@@ -4,36 +4,56 @@ import './styles/style.css';
 import ViewRoleLogic from './ViewRoleLogic';
 import Night from './Night';
 
+import socket from './api/socketConnect';
+
 class ViewRole extends React.Component {
     constructor(props) {
         super(props);
         this.state = {ready: false, allReady: false};
         this.handleReady = this.handleReady.bind(this);
-        this.handleAllReady = this.handleAllReady.bind(this);
+
+        // For test button
+        // this.handleAllReady = this.handleAllReady.bind(this);
     }
 
     handleReady(e) {
         this.setState({ready: e});
+        socket.emit('ready');
     }
 
-    handleAllReady(e) {
+    // For test button
+    /* handleAllReady(e) {
         // If server sends "all players ready" signal
         this.setState({allReady: true});
+    } */
+
+    componentDidMount() {
+        // Add socket listener for all player ready
+        socket.on('all ready', () => {
+            this.setState({allReady: true})
+        })
     }
 
     componentDidUpdate() {
         if (this.state.ready && this.state.allReady) { // check if all other players including the player itself ready
-            ReactDOM.render(<Night playerRole={this.props.playerRole} />, document.getElementById("root")); // move to Night stage
+            setTimeout(() => {
+                ReactDOM.render(<Night playerRole={this.props.playerRole} />, document.getElementById("root")); // move to Night stage
+            }, 3000)
         }
+    }
+
+    componentWillUnmount() {
+        // Remove socket listener
+        socket.off('all ready');
     }
 
     render() {
         if (this.state.ready) {
             return (
                 <div className="base">
-                    {/* Wait for "all players ready" signal to continue */}
                     <h1>Waiting for other players...</h1>
-                    <button onClick={this.handleAllReady}>Test All Ready</button> {/* Test */}
+                    {/* Test button */}
+                    {/* <button onClick={this.handleAllReady}>Test All Ready</button>*/}
                 </div>
             )
         } else {
