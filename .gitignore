@@ -19,7 +19,7 @@
 .env.production.local
 
 # server generated files
-/serverfiles/playerList.json
+/serverfiles/json
 
 npm-debug.log*
 yarn-debug.log*
