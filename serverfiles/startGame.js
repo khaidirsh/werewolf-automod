@@ -30,9 +30,10 @@ module.exports = function (socketId, io) {
             // Shuffle array
             shuffledRoles = shuffle(rolesArr);
 
-            // Create index for main roles and ready state
+            // Create index for main roles, ready state, and status
             let mainRoles = {};
             let playerReady = {};
+            let playerStatus = {};
 
             for (let i = 0; i < playerCount; i++) {
                 // Fill main roles index
@@ -46,6 +47,9 @@ module.exports = function (socketId, io) {
 
                 // Fill player ready state index
                 playerReady[playerList[i].id] = false;
+
+                // Fill player status index
+                playerStatus[playerList[i].id] = true;
             }
             // Save indexes to file
             fs.writeFile('./serverfiles/json/mainRoles.json', JSON.stringify(mainRoles), (err) => {
@@ -54,7 +58,11 @@ module.exports = function (socketId, io) {
             })
             fs.writeFile('./serverfiles/json/playerReady.json', JSON.stringify(playerReady), (err) => {
                 if (err) throw err;
-                console.log(`Player state indexed`)
+                console.log(`Player ready state indexed`)
+            })
+            fs.writeFile('./serverfiles/json/playerStatus.json', JSON.stringify(playerStatus), (err) => {
+                if (err) throw err;
+                console.log(`Player status indexed`)
             })
         }
     });
