@@ -20,7 +20,7 @@ module.exports = function (socketId) {
             // Save new player list
             fs.writeFile('./serverfiles/playerList.json', JSON.stringify(playerList), (err) => {
                 if (err) throw err;
-                console.log(`${nickname} removed from playerList!`)
+                console.log(`${nickname} removed from playerList`)
             })
         }
     });
