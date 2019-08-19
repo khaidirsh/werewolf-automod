@@ -33,7 +33,7 @@ module.exports = function (socketId, io) {
             // Send role to respective player
             for (let i = 0; i < playerCount; i++) {
                 io.to(playerList[i].id).emit('player role', shuffledRoles[i]);
-                console.log(`Role of ${shuffledRoles[i]} sent to ${playerList[i].nick}`)
+                console.log(`Role sent to ${playerList[i].nick}`)
             }
             console.log('Waiting for all players to be ready..')
         }
