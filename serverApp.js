@@ -9,6 +9,7 @@ const port = 9000;
 const addPlayer = require('./serverfiles/addPlayer');
 const removePlayer = require('./serverfiles/removePlayer');
 const startGame = require('./serverfiles/startGame');
+const playerIsReady = require('./serverfiles/playerIsReady');
 
 /* FEATURE TO BE ADDED: CONTINUE IF PLAYER DISCONNECTED
 app.use(express.cookieParser());
@@ -64,6 +65,11 @@ io.on('connection', (socket) => {
     socket.on('start game', () => {
         console.log('Retrieved command to start the game')
         startGame(socket.id, io)
+    })
+
+    // Retrieve player ready state change
+    socket.on('ready', () => {
+        playerIsReady(socket.id, io)
     })
 });
 
