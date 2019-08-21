@@ -1,4 +1,5 @@
 const fs = require('fs');
+const nightRoutine = require('./nightRoutine')
 
 module.exports = function (socketId, io) {
     // Read ready state index
@@ -20,6 +21,11 @@ module.exports = function (socketId, io) {
             for (id in readyIndex) {
                 readyIndex[id] = false;
             }
+
+            // Call night routine
+            setTimeout(() => {
+                nightRoutine('seer', io, true)      // Seer action at first night
+            }, 3000)
         }
 
         // Save ready state index
