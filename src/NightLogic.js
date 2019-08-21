@@ -4,11 +4,12 @@ import './styles/style.css';
 import SeerObserve from './SeerObserve';
 import PlayerList from './PlayerList';
 import NightSummary from './NightSummary';
+import socket from './api/socketConnect';
 
 class NightLogic extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {action: false, actionAt: ""};
+        this.state = {action: false, actionAt: "", firstNight: false};
         this.handleDayCycle = this.handleDayCycle.bind(this);
         this.handleAction = this.handleAction.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -36,8 +37,34 @@ class NightLogic extends React.Component {
             this.setState({action: false}); // Move back to sleep
         } else if (this.props.playerRole === "seer") {
             // render observe result
-            ReactDOM.render(<SeerObserve actionAt={this.state.actionAt} />, document.getElementById("root"));
+            ReactDOM.render(<SeerObserve actionAt={this.state.actionAt} firstNight={this.state.firstNight}/>, document.getElementById("root"));
         }
+    }
+
+    componentDidMount() {
+        // add listener for playing action sound
+        socket.on('wake werewolf', () => {
+            // play werewolf sound
+        });
+        socket.on('wake seer', () => {
+            // play seer sound
+        });
+        socket.on('wake guardian', () => {
+            // play guardian sound
+        });
+
+        // add listener for handle action state change received from server
+        socket.on('action', () => {
+            this.setState({action: true, firstNight: true});
+        })
+    }
+
+    componentWillUnmount() {
+        // remove listener
+        socket.off('wake werewolf');
+        socket.off('wake seer');
+        socket.off('wake guardian');
+        socket.off('action');
     }
 
     render() {
