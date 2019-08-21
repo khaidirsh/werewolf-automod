@@ -10,6 +10,7 @@ const addPlayer = require('./serverfiles/addPlayer');
 const removePlayer = require('./serverfiles/removePlayer');
 const startGame = require('./serverfiles/startGame');
 const playerIsReady = require('./serverfiles/playerIsReady');
+const getRoundCount = require('./serverfiles/getRoundCount');
 
 /* FEATURE TO BE ADDED: CONTINUE IF PLAYER DISCONNECTED
 app.use(express.cookieParser());
@@ -70,6 +71,11 @@ io.on('connection', (socket) => {
     // Retrieve player ready state change
     socket.on('ready', () => {
         playerIsReady(socket.id, io)
+    })
+
+    // Send back round counter
+    socket.on('counter', (roundType, fn) => {
+        fn(getRoundCount(roundType));
     })
 });
 
