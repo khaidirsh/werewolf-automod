@@ -51,8 +51,10 @@ class App extends React.Component {
             <div className="base">
                 <h1>Werewolf Automod</h1>
                 <p>Enter your nickname</p>
-                <input id="nick" onChange={this.handleChange} />
-                <button onClick={this.handleSubmit}>Enter</button>
+                <form>
+                    <input id="nick" onChange={this.handleChange} />
+                    <input type="submit" value="Enter" onClick={this.handleSubmit} />
+                </form>
             </div>
         );
     }
