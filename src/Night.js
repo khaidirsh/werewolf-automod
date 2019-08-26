@@ -6,15 +6,14 @@ import socket from './api/socketConnect'
 class Night extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {counter: 0};
-        // play night sound
-    }
-    
-    componentDidMount() {
+        this.state = {counter: ""};
+
         // request round counter
         socket.emit('counter', 'night', (count) => {
             this.setState({counter: count});
         });
+
+        // play night sound
     }
 
     render() {
