@@ -24,8 +24,9 @@ module.exports = function (socketId, io) {
 
             // Call night routine
             setTimeout(() => {
+                console.log('Send first night action phase to seer')
                 nightRoutine('seer', io, true)      // Seer action at first night
-            }, 3000)
+            }, 6000)                                // 3 seconds after 3 seconds wait to render Night after all player ready
         }
 
         // Save ready state index
