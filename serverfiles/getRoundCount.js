@@ -1,8 +1,8 @@
-const fs = require('fs');
+const db = require('./db')
 
-module.exports = function (roundType) {
+module.exports = async (roundType) => {
     // read file
-    roundCount = JSON.parse(fs.readFileSync('./serverfiles/json/roundCount.json'));
+    roundCount = await db.getDb().collection('gameStats').findOne({_id: "counter"});
 
     // return
     return roundCount[roundType]

@@ -3,7 +3,6 @@ const path = require('path');
 const app = express()
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-const fs = require('fs');
 const port = 9000;
 
 const addPlayer = require('./serverfiles/addPlayer');
@@ -11,6 +10,7 @@ const removePlayer = require('./serverfiles/removePlayer');
 const startGame = require('./serverfiles/startGame');
 const playerIsReady = require('./serverfiles/playerIsReady');
 const getRoundCount = require('./serverfiles/getRoundCount');
+const db = require('./serverfiles/db');
 
 /* FEATURE TO BE ADDED: CONTINUE IF PLAYER DISCONNECTED
 app.use(express.cookieParser());
@@ -36,30 +36,32 @@ app.use(function (req, res, next) {
 });
 */
 
-// Initialize files
-fs.writeFile('./serverfiles/json/playerList.json', JSON.stringify([]), (err) => {
-    if (err) throw err;
-    console.log("playerList initialized")
-})
-
 app.use(express.static(path.join(__dirname, "build")));
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    res.sendFile('index.html');
 });
+
+// For first connected player
+let admin = true;
 
 io.on('connection', (socket) => {
     console.log(`${socket.id} connected`);
 
     // Add player to player list
     socket.on("nick", (nick) => {
-        addPlayer(socket.id, nick, io);
+        addPlayer(socket.id, nick, admin, io);
+
+        // Set false after first connected player
+        if (admin) {
+            admin = false
+        }
     });
 
     // Remove player from player list
     socket.on('disconnect', () => {
-        removePlayer(socket.id);
         console.log(`${socket.id} disconnected`);
+        removePlayer(socket.id);
     });
 
     // Retrieve game start command
@@ -78,5 +80,7 @@ io.on('connection', (socket) => {
         fn(getRoundCount(roundType));
     })
 });
+
+db.connect("mongodb://localhost:27017/werewolf-automod");
 
 server.listen(port, () => console.log(`Server listening on port ${port}`));

@@ -1,38 +1,30 @@
-const fs = require('fs');
+const db = require('./db')
 const nightRoutine = require('./nightRoutine')
 
-module.exports = function (socketId, io) {
-    // Read ready state index
-    fs.readFile('./serverfiles/json/playerReady.json', (err, data) => {
-        if (err) throw err;
+module.exports = async (socketId, io) => {
+    playerDb = db.getDb().collection('playerList');
 
-        let readyIndex = JSON.parse(data);
+    // Update ready state of one ID
+    await playerDb.updateOne({ _id: socketId }, { ready: true });
 
-        // Change ready state of certain ID
-        readyIndex[socketId] = true;
-
-        // Check if all ready
-        readyArr = Object.values(readyIndex);
-        if (readyArr.every((el) => el)) {
-            // Send to everyone that all players ready
-            io.emit('all ready')
-
-            // Reset ready index
-            for (id in readyIndex) {
-                readyIndex[id] = false;
-            }
-
-            // Call night routine
-            setTimeout(() => {
-                console.log('Send first night action phase to seer')
-                nightRoutine('seer', io, true)      // Seer action at first night
-            }, 6000)                                // 3 seconds after 3 seconds wait to render Night after all player ready
+    // Check if all player ready
+    readyState = await playerDb.find({}, {
+        projection: {
+            ready: 1
         }
+    }).toArray();
 
-        // Save ready state index
-        fs.writeFile('./serverfiles/json/playerReady.json', JSON.stringify(readyIndex), (err) => {
-            if (err) throw err;
-            console.log(`${socketId} is ready`)
-        })
-    })
+    if (readyState.every(el => el.ready)) {
+        // Send to everyone that all players ready
+        io.emit('all ready');
+
+        // Reset ready state of all player
+        await playerDb.updateMany({}, { ready: false });
+
+        // Call night routine
+        setTimeout(() => {
+            console.log('Send first night action phase to seer')
+            nightRoutine('seer', io, true)      // Seer action at first night
+        }, 6000)                                // 3 seconds after 3 seconds wait to render Night after all player ready
+    }
 }

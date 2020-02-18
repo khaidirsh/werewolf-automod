@@ -1,10 +1,17 @@
 import React from 'react';
 import './styles/style.css';
+import socket from './api/socketConnect';
 
 class PlayerList extends React.Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
+        this.state = {players: []}
+
+        // request player list to server
+        socket.emit('players', (list) => {
+            this.setState({players: list})
+        })
     }
 
     handleChange(e) {

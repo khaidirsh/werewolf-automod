@@ -1,24 +1,11 @@
-const fs = require('fs');
+const db = require('./db')
 
-module.exports = function (socketId, nickname, io) {
-    let obj = { id: socketId, nick: nickname, admin: false };
-    fs.readFile('./serverfiles/json/playerList.json', (err, data) => {
-        if (err) throw err;
-        let playerList = JSON.parse(data);
+module.exports = async (socketId, nickname, admin, io) => {
+    let obj = { _id: socketId, nick: nickname, admin };
+    await db.getDb().collection('playerList').insertOne(obj)
+    console.log(`${obj.nick} added to player list.`)
 
-        // Set admin to first connected player
-        if (playerList.length === 0) {
-            obj.admin = true;
-        }
-
-        playerList.push(obj);
-        fs.writeFile('./serverfiles/json/playerList.json', JSON.stringify(playerList), (err) => {
-            if (err) throw err;
-            console.log(`${nickname} added to playerList`)
-        })
-
-        // Send master status to client
-        io.to(socketId).emit('master', obj.admin);
-        console.log(`${nickname} master status: ${obj.admin}`)
-    });
-}
+    // Send master status to client
+    io.to(socketId).emit('master', obj.admin);
+    console.log(`${nickname} master status: ${obj.admin}`)
+};

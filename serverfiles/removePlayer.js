@@ -1,27 +1,10 @@
-const fs = require('fs');
+const db = require('./db');
 
-module.exports = function (socketId) {
-    fs.readFile('./serverfiles/json/playerList.json', (err, data) => {
-        if (err) throw err;
-
-        // Parse JSON data
-        let playerList = JSON.parse(data);
-
-        // Find index of socketId
-        let index = playerList.findIndex(playerObj => playerObj.id === socketId)
-
-        if (index !== -1) {
-            // Define player nickname
-            let nickname = playerList[index].nick;
-
-            // Remove player from player list
-            playerList.splice(index, 1);
-
-            // Save new player list
-            fs.writeFile('./serverfiles/json/playerList.json', JSON.stringify(playerList), (err) => {
-                if (err) throw err;
-                console.log(`${nickname} removed from playerList`)
-            })
-        }
-    });
+module.exports = async (socketId) => {
+    const playerList = db.getDb().collection('playerList');
+    const player = await playerList.findOne({_id: socketId});
+    if (player) {
+        await playerList.deleteOne({_id: socketId});
+        console.log(`${player.nick} removed from player list.`)
+    }
 }
